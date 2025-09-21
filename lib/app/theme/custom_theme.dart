@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konta_app/utils/theme/extended_colors.dart';
+import 'package:konta_app/app/theme/extended_colors.dart';
 
 class MaterialTheme {
   final TextTheme textTheme;

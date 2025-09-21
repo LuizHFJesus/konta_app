@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konta_app/utils/theme/custom_text_theme.dart';
-import 'package:konta_app/utils/theme/custom_theme.dart';
+import 'package:konta_app/app/theme/custom_text_theme.dart';
+import 'package:konta_app/app/theme/custom_theme.dart';
 
 void main() {
   runApp(const MyApp());
