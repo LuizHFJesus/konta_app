@@ -42,7 +42,12 @@ class CustomElevatedButton extends StatelessWidget {
                 spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (prefixIcon != null) prefixIcon!,
+                  if (prefixIcon != null)
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: prefixIcon,
+                    ),
                   Text(
                     text,
                     style: const TextStyle(
@@ -50,7 +55,12 @@ class CustomElevatedButton extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  if (suffixIcon != null) suffixIcon!,
+                  if (suffixIcon != null)
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: suffixIcon,
+                    ),
                 ],
               ),
       ),
