@@ -103,6 +103,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Konta'**
   String get appName;
+
+  /// No description provided for @appSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial management'**
+  String get appSubtitle;
+
+  /// No description provided for @signInSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your account'**
+  String get signInSubtitle;
+
+  /// No description provided for @signUpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new account'**
+  String get signUpSubtitle;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get emailHint;
+
+  /// No description provided for @passwordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get passwordHint;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordLabel;
+
+  /// No description provided for @confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password again'**
+  String get confirmPasswordHint;
+
+  /// No description provided for @signInButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get signInButton;
+
+  /// No description provided for @signUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signUpButton;
+
+  /// No description provided for @noAccountQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Sign up'**
+  String get noAccountQuestion;
+
+  /// No description provided for @hasAccountQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in here'**
+  String get hasAccountQuestion;
+
+  /// No description provided for @validationEmptyField.
+  ///
+  /// In en, this message translates to:
+  /// **'This field cannot be empty'**
+  String get validationEmptyField;
+
+  /// No description provided for @validationInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get validationInvalidEmail;
+
+  /// No description provided for @validationPasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long'**
+  String get validationPasswordTooShort;
+
+  /// No description provided for @validationPasswordNeedsLowercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Must contain a lowercase letter'**
+  String get validationPasswordNeedsLowercase;
+
+  /// No description provided for @validationPasswordNeedsUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Must contain an uppercase letter'**
+  String get validationPasswordNeedsUppercase;
+
+  /// No description provided for @validationPasswordNeedsNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Must contain a number'**
+  String get validationPasswordNeedsNumber;
+
+  /// No description provided for @validationPasswordNeedsSpecialCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Must contain a special character'**
+  String get validationPasswordNeedsSpecialCharacter;
+
+  /// No description provided for @validationPasswordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The passwords do not match'**
+  String get validationPasswordsDoNotMatch;
 }
 
 class _AppLocalizationsDelegate
