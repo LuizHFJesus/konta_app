@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/app/l10n/app_localizations.dart';
 import 'package:konta_app/app/navigation/AppRouter.dart';
 import 'package:konta_app/app/theme/custom_text_theme.dart';
 import 'package:konta_app/app/theme/custom_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await injectDependencies();
+
   runApp(const MyApp());
 }
 
