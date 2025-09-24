@@ -6,12 +6,15 @@ class AuthController extends GetxController {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   final _obscurePassword = true.obs;
   final _isSubmitting = false.obs;
+  final _isLoginMode = true.obs;
 
   bool get obscurePassword => _obscurePassword.value;
   bool get isSubmitting => _isSubmitting.value;
+  bool get isLoginMode => _isLoginMode.value;
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) return 'Informe o e-mail';
@@ -35,6 +38,12 @@ class AuthController extends GetxController {
     return null;
   }
 
+  String? validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) return 'Confirme a senha';
+    if (value != passwordController.text) return 'As senhas não coincidem';
+    return null;
+  }
+
   void toggleObscurePassword() =>
       _obscurePassword.value = !_obscurePassword.value;
 
@@ -43,11 +52,19 @@ class AuthController extends GetxController {
     if (!valid) return;
 
     _isSubmitting.value = true;
-    await login();
+    await Future.delayed(const Duration(seconds: 1));
+    if (isLoginMode) {
+      await login();
+    } else {
+      await register();
+    }
   }
 
   Future<void> login() async {
-    await Future.delayed(const Duration(seconds: 1));
+    _isSubmitting.value = false;
+  }
+
+  Future<void> register() async {
     _isSubmitting.value = false;
   }
 
@@ -55,10 +72,12 @@ class AuthController extends GetxController {
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.onClose();
   }
 
   void toggleMode() {
+    _isLoginMode.value = !_isLoginMode.value;
     _isSubmitting.value = false;
     _clearFields();
     _obscurePassword.value = true;
@@ -68,5 +87,6 @@ class AuthController extends GetxController {
   void _clearFields() {
     emailController.clear();
     passwordController.clear();
+    confirmPasswordController.clear();
   }
 }
