@@ -1,4 +1,27 @@
 {
   "@@locale": "en",
-  "appName": "Konta"
+  "appName": "Konta",
+  "appSubtitle": "Financial management",
+
+  "signInSubtitle": "Sign in to your account",
+  "signUpSubtitle": "Create a new account",
+  "emailLabel": "Email",
+  "emailHint": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordHint": "Enter your password",
+  "confirmPasswordLabel": "Confirm Password",
+  "confirmPasswordHint": "Enter your password again",
+  "signInButton": "Sign in",
+  "signUpButton": "Sign up",
+  "noAccountQuestion": "Don't have an account? Sign up",
+  "hasAccountQuestion": "Already have an account? Sign in here",
+
+  "validationEmptyField": "This field cannot be empty",
+  "validationInvalidEmail": "Please enter a valid email address",
+  "validationPasswordTooShort": "Password must be at least 8 characters long",
+  "validationPasswordNeedsLowercase": "Must contain a lowercase letter",
+  "validationPasswordNeedsUppercase": "Must contain an uppercase letter",
+  "validationPasswordNeedsNumber": "Must contain a number",
+  "validationPasswordNeedsSpecialCharacter": "Must contain a special character",
+  "validationPasswordsDoNotMatch": "The passwords do not match"
 }

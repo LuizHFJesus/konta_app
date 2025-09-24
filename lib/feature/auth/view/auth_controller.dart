@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:konta_app/app/l10n/app_localizations.dart';
 
 class AuthController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -16,31 +17,42 @@ class AuthController extends GetxController {
   bool get isSubmitting => _isSubmitting.value;
   bool get isLoginMode => _isLoginMode.value;
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) return 'Informe o e-mail';
+  String? validateEmail(String? value, AppLocalizations l10n) {
+    if (value == null || value.isEmpty) return l10n.validationEmptyField;
     if (!RegExp(
       r'^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$',
     ).hasMatch(value)) {
-      return 'E-mail inválido';
+      return l10n.validationInvalidEmail;
     }
+
     return null;
   }
 
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Informe a senha';
-    if (value.length < 8) return 'Mínimo 8 caracteres';
-    if (!RegExp(r'[a-z]').hasMatch(value)) return 'Precisa de letra minúscula';
-    if (!RegExp(r'[A-Z]').hasMatch(value)) return 'Precisa de letra maiúscula';
-    if (!RegExp(r'[0-9]').hasMatch(value)) return 'Precisa de número';
+  String? validatePassword(String? value, AppLocalizations l10n) {
+    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+    if (value.length < 8) return l10n.validationPasswordTooShort;
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return l10n.validationPasswordNeedsLowercase;
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return l10n.validationPasswordNeedsUppercase;
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return l10n.validationPasswordNeedsNumber;
+    }
     if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>\-+=\[\]\\/;]').hasMatch(value)) {
-      return 'Precisa de caractere especial';
+      return l10n.validationPasswordNeedsSpecialCharacter;
     }
+
     return null;
   }
 
-  String? validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) return 'Confirme a senha';
-    if (value != passwordController.text) return 'As senhas não coincidem';
+  String? validateConfirmPassword(String? value, AppLocalizations l10n) {
+    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+    if (value != passwordController.text) {
+      return l10n.validationPasswordsDoNotMatch;
+    }
+
     return null;
   }
 

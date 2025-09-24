@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
+import 'package:konta_app/app/l10n/app_localizations.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/common/widgets/custom_text_button.dart';
 import 'package:konta_app/feature/auth/view/auth_controller.dart';
@@ -16,9 +17,10 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   final AuthController controller = getIt<AuthController>();
-
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
@@ -30,18 +32,18 @@ class _AuthViewState extends State<AuthView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildHeader(context),
+                    _buildHeader(context, l10n),
                     const SizedBox(height: 30),
-                    _buildEmailField(),
+                    _buildEmailField(l10n),
                     const SizedBox(height: 20),
-                    _buildPasswordField(),
+                    _buildPasswordField(l10n),
                     if (!controller.isLoginMode) ...[
                       const SizedBox(height: 20),
-                      _buildConfirmPasswordField(),
+                      _buildConfirmPasswordField(l10n),
                     ],
                     const SizedBox(height: 30),
-                    _buildSubmitButton(),
-                    _buildToggleModeButton(),
+                    _buildSubmitButton(l10n),
+                    _buildToggleModeButton(l10n),
                   ],
                 ),
               ),
@@ -52,7 +54,7 @@ class _AuthViewState extends State<AuthView> {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, AppLocalizations l10n) {
     return Column(
       children: [
         SvgPicture.asset(
@@ -61,7 +63,7 @@ class _AuthViewState extends State<AuthView> {
         ),
         const SizedBox(height: 20),
         Text(
-          'Konta\nGestão financeira',
+          '${l10n.appName}\n${l10n.appSubtitle}',
           style: GoogleFonts.bowlbyOneSc(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -73,29 +75,29 @@ class _AuthViewState extends State<AuthView> {
         ),
         const SizedBox(height: 20),
         Text(
-          controller.isLoginMode ? 'Entre na sua conta' : 'Crie uma nova conta',
+          controller.isLoginMode ? l10n.signInSubtitle : l10n.signUpSubtitle,
           style: const TextStyle(fontSize: 18),
         ),
       ],
     );
   }
 
-  Widget _buildEmailField() {
+  Widget _buildEmailField(AppLocalizations l10n) {
     return TextFormField(
       controller: controller.emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: 'E-mail',
-        hintText: 'Digite seu e-mail',
+        labelText: l10n.emailLabel,
+        hintText: l10n.emailHint,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      validator: controller.validateEmail,
+      validator: (value) => controller.validateEmail(value, l10n),
     );
   }
 
-  Widget _buildPasswordField() {
+  Widget _buildPasswordField(AppLocalizations l10n) {
     return TextFormField(
       controller: controller.passwordController,
       obscureText: controller.obscurePassword,
@@ -103,8 +105,8 @@ class _AuthViewState extends State<AuthView> {
           ? TextInputAction.done
           : TextInputAction.next,
       decoration: InputDecoration(
-        labelText: 'Senha',
-        hintText: 'Digite sua senha',
+        labelText: l10n.passwordLabel,
+        hintText: l10n.passwordHint,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
@@ -116,18 +118,18 @@ class _AuthViewState extends State<AuthView> {
           onPressed: controller.toggleObscurePassword,
         ),
       ),
-      validator: controller.validatePassword,
+      validator: (value) => controller.validatePassword(value, l10n),
     );
   }
 
-  Widget _buildConfirmPasswordField() {
+  Widget _buildConfirmPasswordField(AppLocalizations l10n) {
     return TextFormField(
       controller: controller.confirmPasswordController,
       obscureText: controller.obscurePassword,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        labelText: 'Confirmar senha',
-        hintText: 'Digite novamente sua senha',
+        labelText: l10n.confirmPasswordLabel,
+        hintText: l10n.confirmPasswordHint,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: Icon(
@@ -139,25 +141,25 @@ class _AuthViewState extends State<AuthView> {
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      validator: controller.validateConfirmPassword,
+      validator: (value) => controller.validateConfirmPassword(value, l10n),
     );
   }
 
-  Widget _buildSubmitButton() {
+  Widget _buildSubmitButton(AppLocalizations l10n) {
     return CustomElevatedButton(
       text: controller.isLoginMode
-          ? 'Entrar'
-          : 'Cadastrar',
+          ? l10n.signInButton
+          : l10n.signUpButton,
       isSubmitting: controller.isSubmitting,
       onPressed: controller.submit,
     );
   }
 
-  Widget _buildToggleModeButton() {
+  Widget _buildToggleModeButton(AppLocalizations l10n) {
     return CustomTextButton(
       text: controller.isLoginMode
-          ? 'Não tem uma conta? Cadastre-se!'
-          : 'Já tem uma conta? Entre aqui!',
+          ? l10n.noAccountQuestion
+          : l10n.hasAccountQuestion,
       onPressed: controller.isSubmitting ? null : controller.toggleMode,
     );
   }
