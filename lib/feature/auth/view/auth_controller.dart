@@ -8,6 +8,7 @@ class AuthController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final nameController = TextEditingController();
 
   final _obscurePassword = true.obs;
   final _isSubmitting = false.obs;
@@ -56,6 +57,14 @@ class AuthController extends GetxController {
     return null;
   }
 
+  String? validateName(String? value, AppLocalizations l10n) {
+    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+    if (!RegExp(r'^[a-zA-ZÀ-ú\s]+$').hasMatch(value)) {
+      return l10n.validationNameInvalidChars;
+    }
+    return null;
+  }
+
   void toggleObscurePassword() =>
       _obscurePassword.value = !_obscurePassword.value;
 
@@ -85,6 +94,7 @@ class AuthController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    nameController.dispose();
     super.onClose();
   }
 
@@ -100,5 +110,6 @@ class AuthController extends GetxController {
     emailController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
+    nameController.clear();
   }
 }

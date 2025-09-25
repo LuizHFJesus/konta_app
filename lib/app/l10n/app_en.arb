@@ -11,6 +11,8 @@
   "passwordHint": "Enter your password",
   "confirmPasswordLabel": "Confirm Password",
   "confirmPasswordHint": "Enter your password again",
+  "nameLabel": "Name",
+  "nameHint": "Enter your name",
   "signInButton": "Sign in",
   "signUpButton": "Sign up",
   "noAccountQuestion": "Don't have an account? Sign up",
@@ -23,5 +25,6 @@
   "validationPasswordNeedsUppercase": "Must contain an uppercase letter",
   "validationPasswordNeedsNumber": "Must contain a number",
   "validationPasswordNeedsSpecialCharacter": "Must contain a special character",
+  "validationNameInvalidChars": "Name must only contain letters and spaces",
   "validationPasswordsDoNotMatch": "The passwords do not match"
 }

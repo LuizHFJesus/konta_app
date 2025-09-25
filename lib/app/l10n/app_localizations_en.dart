@@ -39,6 +39,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmPasswordHint => 'Enter your password again';
 
   @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get nameHint => 'Enter your name';
+
+  @override
   String get signInButton => 'Sign in';
 
   @override
@@ -74,6 +80,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get validationPasswordNeedsSpecialCharacter =>
       'Must contain a special character';
+
+  @override
+  String get validationNameInvalidChars =>
+      'Name must only contain letters and spaces';
 
   @override
   String get validationPasswordsDoNotMatch => 'The passwords do not match';
