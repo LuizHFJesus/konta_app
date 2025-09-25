@@ -21,8 +21,10 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    cascade_invocations: false
     require_trailing_commas: true
     sort_child_properties_last: true
+    sort_constructors_first: false
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

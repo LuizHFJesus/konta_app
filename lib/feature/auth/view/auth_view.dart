@@ -23,7 +23,7 @@ class _AuthViewState extends State<AuthView> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
         child: Center(
           child: Obx(
             () => Form(
@@ -44,7 +44,7 @@ class _AuthViewState extends State<AuthView> {
                       _buildNameField(l10n),
                     ],
                     const SizedBox(height: 30),
-                    _buildSubmitButton(l10n),
+                    _buildSubmitButton(l10n, context),
                     _buildToggleModeButton(l10n),
                   ],
                 ),
@@ -128,7 +128,7 @@ class _AuthViewState extends State<AuthView> {
     return TextFormField(
       controller: controller.confirmPasswordController,
       obscureText: controller.obscurePassword,
-      textInputAction: TextInputAction.done,
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: l10n.confirmPasswordLabel,
         hintText: l10n.confirmPasswordHint,
@@ -150,7 +150,8 @@ class _AuthViewState extends State<AuthView> {
   Widget _buildNameField(AppLocalizations l10n) {
     return TextFormField(
       controller: controller.nameController,
-      textInputAction: TextInputAction.next,
+      textInputAction: TextInputAction.done,
+      textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
         labelText: l10n.nameLabel,
         hintText: l10n.nameHint,
@@ -161,13 +162,13 @@ class _AuthViewState extends State<AuthView> {
     );
   }
 
-  Widget _buildSubmitButton(AppLocalizations l10n) {
+  Widget _buildSubmitButton(AppLocalizations l10n, BuildContext context) {
     return CustomElevatedButton(
       text: controller.isLoginMode
           ? l10n.signInButton
           : l10n.signUpButton,
       isSubmitting: controller.isSubmitting,
-      onPressed: controller.submit,
+      onPressed: () => controller.submit(context),
     );
   }
 
