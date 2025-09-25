@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/app/l10n/app_localizations.dart';
+import 'package:konta_app/app/navigation/app_routes.dart';
+import 'package:konta_app/feature/auth/data/repository/auth_repository.dart';
 
 class AuthController extends GetxController {
+  final AuthRepository _repository = getIt<AuthRepository>();
   final formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -10,9 +15,10 @@ class AuthController extends GetxController {
   final confirmPasswordController = TextEditingController();
   final nameController = TextEditingController();
 
-  final _obscurePassword = true.obs;
-  final _isSubmitting = false.obs;
-  final _isLoginMode = true.obs;
+  final RxBool _obscurePassword = true.obs;
+  final RxBool _isSubmitting = false.obs;
+  final RxBool _isLoginMode = true.obs;
+  final RxString _errorMessage = ''.obs;
 
   bool get obscurePassword => _obscurePassword.value;
   bool get isSubmitting => _isSubmitting.value;
@@ -68,25 +74,49 @@ class AuthController extends GetxController {
   void toggleObscurePassword() =>
       _obscurePassword.value = !_obscurePassword.value;
 
-  Future<void> submit() async {
+  Future<void> submit(BuildContext context) async {
     final valid = formKey.currentState?.validate() ?? false;
     if (!valid) return;
 
     _isSubmitting.value = true;
-    await Future.delayed(const Duration(seconds: 1));
+    _errorMessage.value = '';
     if (isLoginMode) {
-      await login();
+      await login(context);
     } else {
       await register();
     }
+    _isSubmitting.value = false;
   }
 
-  Future<void> login() async {
-    _isSubmitting.value = false;
+  Future<void> login(BuildContext context) async {
+    final response = await _repository.signInWithPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    response.fold(
+      ifLeft: (left) => _errorMessage.value = left.message,
+      ifRight: (right) {
+        _clearFields();
+        context.go(AppRoutes.home);
+      },
+    );
   }
 
   Future<void> register() async {
-    _isSubmitting.value = false;
+    final response = await _repository.signUp(
+      email: emailController.text,
+      password: passwordController.text,
+      name: nameController.text,
+    );
+
+    response.fold(
+      ifLeft: (left) => _errorMessage.value = left.message,
+      ifRight: (right) {
+        _isLoginMode.value = true;
+        _clearFields();
+      },
+    );
   }
 
   @override
