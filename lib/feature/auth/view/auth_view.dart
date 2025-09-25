@@ -40,6 +40,8 @@ class _AuthViewState extends State<AuthView> {
                     if (!controller.isLoginMode) ...[
                       const SizedBox(height: 20),
                       _buildConfirmPasswordField(l10n),
+                      const SizedBox(height: 20),
+                      _buildNameField(l10n),
                     ],
                     const SizedBox(height: 30),
                     _buildSubmitButton(l10n),
@@ -107,7 +109,7 @@ class _AuthViewState extends State<AuthView> {
       decoration: InputDecoration(
         labelText: l10n.passwordLabel,
         hintText: l10n.passwordHint,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: Icon(
@@ -139,9 +141,23 @@ class _AuthViewState extends State<AuthView> {
           ),
           onPressed: controller.toggleObscurePassword,
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
       validator: (value) => controller.validateConfirmPassword(value, l10n),
+    );
+  }
+
+  Widget _buildNameField(AppLocalizations l10n) {
+    return TextFormField(
+      controller: controller.nameController,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        labelText: l10n.nameLabel,
+        hintText: l10n.nameHint,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      validator: (value) => controller.validateName(value, l10n),
     );
   }
 

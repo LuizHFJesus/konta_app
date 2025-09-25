@@ -11,6 +11,8 @@
   "passwordHint": "Digite sua senha",
   "confirmPasswordLabel": "Confirmar senha",
   "confirmPasswordHint": "Digite novamente sua senha",
+  "nameLabel": "Nome",
+  "nameHint": "Digite seu nome",
   "signInButton": "Entrar",
   "signUpButton": "Cadastrar",
   "noAccountQuestion": "Não tem uma conta? Cadastre-se",
@@ -23,5 +25,6 @@
   "validationPasswordNeedsUppercase": "Precisa conter uma letra maiúscula",
   "validationPasswordNeedsNumber": "Precisa conter um número",
   "validationPasswordNeedsSpecialCharacter": "Precisa conter um caractere especial",
+  "validationNameInvalidChars": "O nome deve conter apenas letras e espaços",
   "validationPasswordsDoNotMatch": "As senhas não coincidem"
 }

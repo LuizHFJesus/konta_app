@@ -39,6 +39,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get confirmPasswordHint => 'Digite novamente sua senha';
 
   @override
+  String get nameLabel => 'Nome';
+
+  @override
+  String get nameHint => 'Digite seu nome';
+
+  @override
   String get signInButton => 'Entrar';
 
   @override
@@ -74,6 +80,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get validationPasswordNeedsSpecialCharacter =>
       'Precisa conter um caractere especial';
+
+  @override
+  String get validationNameInvalidChars =>
+      'O nome deve conter apenas letras e espaços';
 
   @override
   String get validationPasswordsDoNotMatch => 'As senhas não coincidem';

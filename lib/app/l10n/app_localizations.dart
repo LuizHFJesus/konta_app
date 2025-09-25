@@ -158,6 +158,18 @@ abstract class AppLocalizations {
   /// **'Enter your password again'**
   String get confirmPasswordHint;
 
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get nameHint;
+
   /// No description provided for @signInButton.
   ///
   /// In en, this message translates to:
@@ -223,6 +235,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Must contain a special character'**
   String get validationPasswordNeedsSpecialCharacter;
+
+  /// No description provided for @validationNameInvalidChars.
+  ///
+  /// In en, this message translates to:
+  /// **'Name must only contain letters and spaces'**
+  String get validationNameInvalidChars;
 
   /// No description provided for @validationPasswordsDoNotMatch.
   ///
