@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
-import 'package:konta_app/app/l10n/app_localizations.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/common/widgets/custom_text_button.dart';
 import 'package:konta_app/feature/auth/view/auth_controller.dart';
