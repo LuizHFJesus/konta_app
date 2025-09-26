@@ -17,10 +17,9 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   final AuthController controller = getIt<AuthController>();
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
@@ -32,20 +31,20 @@ class _AuthViewState extends State<AuthView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildHeader(context, l10n),
+                    _buildHeader(context),
                     const SizedBox(height: 30),
-                    _buildEmailField(l10n),
+                    _buildEmailField(),
                     const SizedBox(height: 20),
-                    _buildPasswordField(l10n),
+                    _buildPasswordField(),
                     if (!controller.isLoginMode) ...[
                       const SizedBox(height: 20),
-                      _buildConfirmPasswordField(l10n),
+                      _buildConfirmPasswordField(),
                       const SizedBox(height: 20),
-                      _buildNameField(l10n),
+                      _buildNameField(),
                     ],
                     const SizedBox(height: 30),
-                    _buildSubmitButton(l10n, context),
-                    _buildToggleModeButton(l10n),
+                    _buildSubmitButton(context),
+                    _buildToggleModeButton(),
                   ],
                 ),
               ),
@@ -56,7 +55,7 @@ class _AuthViewState extends State<AuthView> {
     );
   }
 
-  Widget _buildHeader(BuildContext context, AppLocalizations l10n) {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
         SvgPicture.asset(
@@ -65,7 +64,7 @@ class _AuthViewState extends State<AuthView> {
         ),
         const SizedBox(height: 20),
         Text(
-          '${l10n.appName}\n${l10n.appSubtitle}',
+          '${'app_name'.tr}\n${'app_subtitle'.tr}',
           style: GoogleFonts.bowlbyOneSc(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -77,29 +76,31 @@ class _AuthViewState extends State<AuthView> {
         ),
         const SizedBox(height: 20),
         Text(
-          controller.isLoginMode ? l10n.signInSubtitle : l10n.signUpSubtitle,
+          controller.isLoginMode
+              ? 'sign_in_subtitle'.tr
+              : 'sign_up_subtitle'.tr,
           style: const TextStyle(fontSize: 18),
         ),
       ],
     );
   }
 
-  Widget _buildEmailField(AppLocalizations l10n) {
+  Widget _buildEmailField() {
     return TextFormField(
       controller: controller.emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: l10n.emailLabel,
-        hintText: l10n.emailHint,
+        labelText: 'email_label'.tr,
+        hintText: 'email_hint'.tr,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
-      validator: (value) => controller.validateEmail(value, l10n),
+      validator: controller.validateEmail,
     );
   }
 
-  Widget _buildPasswordField(AppLocalizations l10n) {
+  Widget _buildPasswordField() {
     return TextFormField(
       controller: controller.passwordController,
       obscureText: controller.obscurePassword,
@@ -107,8 +108,8 @@ class _AuthViewState extends State<AuthView> {
           ? TextInputAction.done
           : TextInputAction.next,
       decoration: InputDecoration(
-        labelText: l10n.passwordLabel,
-        hintText: l10n.passwordHint,
+        labelText: 'password_label'.tr,
+        hintText: 'password_hint'.tr,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
@@ -120,18 +121,18 @@ class _AuthViewState extends State<AuthView> {
           onPressed: controller.toggleObscurePassword,
         ),
       ),
-      validator: (value) => controller.validatePassword(value, l10n),
+      validator: controller.validatePassword,
     );
   }
 
-  Widget _buildConfirmPasswordField(AppLocalizations l10n) {
+  Widget _buildConfirmPasswordField() {
     return TextFormField(
       controller: controller.confirmPasswordController,
       obscureText: controller.obscurePassword,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: l10n.confirmPasswordLabel,
-        hintText: l10n.confirmPasswordHint,
+        labelText: 'confirm_password_label'.tr,
+        hintText: 'confirm_password_hint'.tr,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: Icon(
@@ -143,40 +144,38 @@ class _AuthViewState extends State<AuthView> {
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      validator: (value) => controller.validateConfirmPassword(value, l10n),
+      validator: controller.validateConfirmPassword,
     );
   }
 
-  Widget _buildNameField(AppLocalizations l10n) {
+  Widget _buildNameField() {
     return TextFormField(
       controller: controller.nameController,
       textInputAction: TextInputAction.done,
       textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-        labelText: l10n.nameLabel,
-        hintText: l10n.nameHint,
+        labelText: 'name_label'.tr,
+        hintText: 'name_hint'.tr,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      validator: (value) => controller.validateName(value, l10n),
+      validator: controller.validateName,
     );
   }
 
-  Widget _buildSubmitButton(AppLocalizations l10n, BuildContext context) {
+  Widget _buildSubmitButton(BuildContext context) {
     return CustomElevatedButton(
-      text: controller.isLoginMode
-          ? l10n.signInButton
-          : l10n.signUpButton,
+      text: controller.isLoginMode ? 'sign_in_button'.tr : 'sign_up_button'.tr,
       isSubmitting: controller.isSubmitting,
       onPressed: () => controller.submit(context),
     );
   }
 
-  Widget _buildToggleModeButton(AppLocalizations l10n) {
+  Widget _buildToggleModeButton() {
     return CustomTextButton(
       text: controller.isLoginMode
-          ? l10n.noAccountQuestion
-          : l10n.hasAccountQuestion,
+          ? 'no_account_question'.tr
+          : 'has_account_question'.tr,
       onPressed: controller.isSubmitting ? null : controller.toggleMode,
     );
   }
