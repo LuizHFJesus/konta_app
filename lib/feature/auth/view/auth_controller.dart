@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
-import 'package:konta_app/app/l10n/app_localizations.dart';
 import 'package:konta_app/app/navigation/app_routes.dart';
 import 'package:konta_app/feature/auth/data/repository/auth_repository.dart';
 
@@ -24,49 +23,49 @@ class AuthController extends GetxController {
   bool get isSubmitting => _isSubmitting.value;
   bool get isLoginMode => _isLoginMode.value;
 
-  String? validateEmail(String? value, AppLocalizations l10n) {
-    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) return 'validation_empty_field'.tr;
     if (!RegExp(
       r'^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$',
     ).hasMatch(value)) {
-      return l10n.validationInvalidEmail;
+      return 'validation_invalid_email'.tr;
     }
 
     return null;
   }
 
-  String? validatePassword(String? value, AppLocalizations l10n) {
-    if (value == null || value.isEmpty) return l10n.validationEmptyField;
-    if (value.length < 8) return l10n.validationPasswordTooShort;
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) return 'validation_empty_field'.tr;
+    if (value.length < 8) return 'validation_password_too_short'.tr;
     if (!RegExp(r'[a-z]').hasMatch(value)) {
-      return l10n.validationPasswordNeedsLowercase;
+      return 'validation_password_needs_lowercase'.tr;
     }
     if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return l10n.validationPasswordNeedsUppercase;
+      return 'validation_password_needs_uppercase'.tr;
     }
     if (!RegExp(r'[0-9]').hasMatch(value)) {
-      return l10n.validationPasswordNeedsNumber;
+      return 'validation_password_needs_number'.tr;
     }
     if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>\-+=\[\]\\/;]').hasMatch(value)) {
-      return l10n.validationPasswordNeedsSpecialCharacter;
+      return 'validation_password_needs_special_character'.tr;
     }
 
     return null;
   }
 
-  String? validateConfirmPassword(String? value, AppLocalizations l10n) {
-    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+  String? validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) return 'validation_empty_field'.tr;
     if (value != passwordController.text) {
-      return l10n.validationPasswordsDoNotMatch;
+      return 'validation_passwords_do_not_match'.tr;
     }
 
     return null;
   }
 
-  String? validateName(String? value, AppLocalizations l10n) {
-    if (value == null || value.isEmpty) return l10n.validationEmptyField;
+  String? validateName(String? value) {
+    if (value == null || value.isEmpty) return 'validation_empty_field'.tr;
     if (!RegExp(r'^[a-zA-ZÀ-ú\s]+$').hasMatch(value)) {
-      return l10n.validationNameInvalidChars;
+      return 'validation_name_invalid_chars'.tr;
     }
     return null;
   }

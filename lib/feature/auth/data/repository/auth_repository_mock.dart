@@ -1,4 +1,5 @@
 import 'package:dart_either/dart_either.dart';
+import 'package:get/get.dart';
 import 'package:konta_app/common/utils/failure.dart';
 import 'package:konta_app/feature/auth/data/model/user_profile.dart';
 import 'package:konta_app/feature/auth/data/repository/auth_repository.dart';
@@ -16,7 +17,7 @@ class AuthRepositoryMock implements AuthRepository {
     if (_currentUser != null) {
       return Right(_currentUser!);
     } else {
-      return Left(Failure('Nenhum usuário logado.'));
+      return Left(Failure('failure_no_users_logged_in'.tr));
     }
   }
 
@@ -32,7 +33,7 @@ class AuthRepositoryMock implements AuthRepository {
       _currentUser = user;
       return Right(user);
     } else {
-      return Left(Failure('E-mail ou senha inválidos.'));
+      return Left(Failure('failure_invalid_credentials'.tr));
     }
   }
 
@@ -45,7 +46,7 @@ class AuthRepositoryMock implements AuthRepository {
     await Future.delayed(const Duration(seconds: 1));
 
     if (_users.any((e) => e.email == email)) {
-      return Left(Failure('E-mail já cadastrado'));
+      return Left(Failure('failure_email_registered'.tr));
     } else {
       final newUser = UserProfile(
           id: 'mock_uid_${DateTime.now().millisecondsSinceEpoch}',
