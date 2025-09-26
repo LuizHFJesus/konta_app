@@ -35,4 +35,10 @@ const Map<String, String> enUS = {
   'failure_no_users_logged_in': 'No users logged in',
   'failure_invalid_credentials': 'Invalid email or password',
   'failure_email_registered': 'Email already registered',
+
+  // Bottom navigation bar labels
+  'home_label': 'Home',
+  'reports_label': 'Reports',
+  'reminder_label': 'Reminder',
+  'profile_label': 'Profile'
 };

@@ -34,4 +34,10 @@ const Map<String, String> ptBR = {
   'failure_no_users_logged_in': 'Nenhum usuário autenticado',
   'failure_invalid_credentials': 'E-mail ou senha inválidos',
   'failure_email_registered': 'E-mail já cadastrado',
+
+  // Bottom navigation bar labels
+  'home_label': 'Início',
+  'reports_label': 'Relatórios',
+  'reminder_label': 'Lembretes',
+  'profile_label': 'Perfil',
 };
