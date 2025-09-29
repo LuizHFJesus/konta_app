@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+class Account {
+  final String id;
+  final String name;
+  final double balance;
+  final int iconCodePoint;
+  final int colorValue;
+
+  Account({
+    required this.id,
+    required this.name,
+    required this.balance,
+    required this.iconCodePoint,
+    required this.colorValue,
+  });
+
+  Color get color => Color(colorValue);
+
+  IconData get icon => IconData(iconCodePoint);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'balance': balance,
+      'iconCodePoint': iconCodePoint,
+      'colorValue': colorValue,
+    };
+  }
+
+  factory Account.fromJson(Map<String, dynamic> map) {
+    return Account(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      balance: map['balance'] as double,
+      iconCodePoint: map['iconCodePoint'] as int,
+      colorValue: map['colorValue'] as int,
+    );
+  }
+}
