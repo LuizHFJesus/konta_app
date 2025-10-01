@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/navigation/app_routes.dart';
+import 'package:konta_app/feature/accounts/ui/views/accounts_view.dart';
 import 'package:konta_app/feature/auth/view/auth_view.dart';
 import 'package:konta_app/feature/home/ui/base_screen.dart';
 
@@ -66,6 +67,12 @@ class AppRouter {
               ],
             ),
           ],
+        ),
+
+        GoRoute(
+          name: AppRoutes.accounts,
+          path: AppRoutes.accounts,
+          builder: (context, state) => const AccountsView(),
         ),
       ],
     );

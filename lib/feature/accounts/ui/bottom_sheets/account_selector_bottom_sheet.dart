@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/common/widgets/custom_text_button.dart';
@@ -17,10 +18,10 @@ class AccountSelectorBottomSheet extends StatelessWidget {
     return Obx(() {
       if (controller.isLoading) {
         return Container(
-          width: double.maxFinite, // modal vai até as bordas laterais
+          width: double.maxFinite,
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
           child: const Column(
-            mainAxisSize: MainAxisSize.min, // só a altura necessária
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
@@ -65,9 +66,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                 Text('Contas', style: theme.textTheme.titleMedium),
                 IconButton(
                   icon: const Icon(Icons.edit_outlined),
-                  onPressed: () {
-                    // context.go('/accounts');
-                  },
+                  onPressed: () => context.push('/accounts'),
                 ),
               ],
             ),
@@ -107,9 +106,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                 color: theme.colorScheme.primary,
               ),
               text: 'Adicionar nova conta',
-              onPressed: () => {
-                // context.go('/accounts');
-              },
+              onPressed: () => context.push('/accounts'),
             ),
           ],
         ),
