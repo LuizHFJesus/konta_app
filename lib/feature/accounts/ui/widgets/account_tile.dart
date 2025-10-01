@@ -28,7 +28,7 @@ class AccountTile extends StatelessWidget {
         width: 32,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: theme.colorScheme.surfaceContainerHighest,
+            color: HSLColor.fromColor(color).withLightness(0.85).toColor(),
         ),
         alignment: Alignment.center,
         child: Icon(icon, color: color),

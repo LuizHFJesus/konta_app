@@ -17,7 +17,7 @@ class Account {
 
   Color get color => Color(colorValue);
 
-  IconData get icon => IconData(iconCodePoint);
+  IconData get icon => IconData(iconCodePoint, fontFamily: 'MaterialIcons');
 
   Map<String, dynamic> toJson() {
     return {
