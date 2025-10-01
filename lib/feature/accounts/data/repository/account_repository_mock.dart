@@ -22,7 +22,7 @@ class AccountRepositoryMock implements AccountRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addAccount({
+  Future<Either<Failure, void>> createAccount({
     required String name,
     required double balance,
     required int iconCodePoint,
