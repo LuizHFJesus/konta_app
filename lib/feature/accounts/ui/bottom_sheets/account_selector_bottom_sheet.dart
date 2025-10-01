@@ -77,7 +77,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
               children: [
                 AccountSelectorTile(
                   icon: Icons.wallet,
-                  color: theme.colorScheme.onSurfaceVariant,
+                  color: const Color(0xFF434654),
                   name: 'Todas as contas',
                   balance: controller.totalBalance,
                   onTap: () => controller.selectAccount(null),
