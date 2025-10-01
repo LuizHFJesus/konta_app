@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
-    super.key,
+    this.icon,
     required this.text,
     this.onPressed,
+    super.key,
   });
 
+  final Widget? icon;
   final String text;
   final VoidCallback? onPressed;
 
@@ -14,14 +16,15 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      child: TextButton(
+      child: TextButton.icon(
         onPressed: onPressed,
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(
+        icon: icon,
+        label: Text(
           text,
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,

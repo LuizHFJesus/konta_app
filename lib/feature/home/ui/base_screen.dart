@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:konta_app/feature/accounts/ui/bottom_sheets/account_selector_bottom_sheet.dart';
 
 class BaseScreen extends StatelessWidget {
   const BaseScreen({required this.navigationShell, super.key});
@@ -23,7 +24,19 @@ class BaseScreen extends StatelessWidget {
       appBar: AppBar(),
       body: navigationShell,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          // FOR TESTING ONLY! REMOVE IT AFTER THE ACCOUNTS FEATURE IS COMPLETE!
+          await showModalBottomSheet<AccountSelectorBottomSheet>(
+            context: context,
+            builder: (_) => const AccountSelectorBottomSheet(),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+          );
+        },
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),
