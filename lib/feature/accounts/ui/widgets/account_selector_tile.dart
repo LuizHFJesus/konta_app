@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konta_app/feature/accounts/ui/widgets/account_tile.dart';
 
 class AccountSelectorTile extends StatelessWidget {
   const AccountSelectorTile({
@@ -22,35 +23,18 @@ class AccountSelectorTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return ListTile(
-      leading: Container(
-        height: 32,
-        width: 32,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: theme.colorScheme.surfaceContainerHighest,
-        ),
-        alignment: Alignment.center,
-        child: Icon(icon, color: color),
-      ),
-      title: Text(name),
-      subtitle: Text(
-        'Saldo: R\$ ${balance.toStringAsFixed(2)}',
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-      ),
-      onTap: onTap,
+    return AccountTile(
+      icon: icon,
+      color: color,
+      name: name,
+      balance: balance,
       trailing: isSelected
           ? Icon(
               Icons.check_circle,
               color: theme.colorScheme.primary,
             )
           : null,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: theme.colorScheme.outline),
-        borderRadius: BorderRadius.circular(8),
-      ),
+      onTap: onTap,
     );
   }
 }

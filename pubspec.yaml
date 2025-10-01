@@ -69,6 +69,7 @@ flutter:
   assets:
     - assets/app_logo_primary.svg
     - assets/app_logo_white.svg
+    - assets/wallet-no-accounts.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
