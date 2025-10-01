@@ -2,23 +2,38 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dart_either/dart_either.dart';
+import 'package:flutter/material.dart';
 import 'package:konta_app/common/utils/failure.dart';
 import 'package:konta_app/feature/accounts/data/model/account.dart';
 import 'package:konta_app/feature/accounts/data/repository/account_repository.dart';
 
 class AccountRepositoryMock implements AccountRepository {
-  final List<Account> _accounts = [];
+  final List<Account> _accounts = [
+    Account(
+      id: '00001',
+      name: 'PicPay',
+      balance: 1000,
+      iconCodePoint: Icons.savings.codePoint,
+      colorValue: const Color(0xFF95C940).toARGB32(),
+    ),
 
-  final _accountsStreamController =
-      StreamController<Either<Failure, List<Account>>>.broadcast();
-
-  AccountRepositoryMock() {
-    _accountsStreamController.add(Right(_accounts));
-  }
+    Account(
+      id: '00002',
+      name: 'BTG',
+      balance: 1000,
+      iconCodePoint: Icons.attach_money.codePoint,
+      colorValue: const Color(0xFF4570B5).toARGB32(),
+    ),
+  ];
 
   @override
-  Stream<Either<Failure, List<Account>>> watchAccounts() {
-    return _accountsStreamController.stream;
+  Future<Either<Failure, List<Account>>> getAccounts() async {
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      return Right(_accounts);
+    } catch (e) {
+      return Left(Failure('Erro ao carregar contas (mock).'));
+    }
   }
 
   @override
@@ -40,7 +55,6 @@ class AccountRepositoryMock implements AccountRepository {
       );
 
       _accounts.add(newAccount);
-      _accountsStreamController.add(Right(_accounts));
 
       return const Right(null);
     } catch (e) {
@@ -56,7 +70,6 @@ class AccountRepositoryMock implements AccountRepository {
       final index = _accounts.indexWhere((acc) => acc.id == account.id);
       if (index != -1) {
         _accounts[index] = account;
-        _accountsStreamController.add(Right(_accounts));
       } else {
         return Left(Failure('Conta não encontrada para atualizar (mock).'));
       }
@@ -73,7 +86,6 @@ class AccountRepositoryMock implements AccountRepository {
       await Future.delayed(const Duration(seconds: 1));
 
       _accounts.removeWhere((acc) => acc.id == accountId);
-      _accountsStreamController.add(Right(_accounts));
 
       return const Right(null);
     } catch (e) {

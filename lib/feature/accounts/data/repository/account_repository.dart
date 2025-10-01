@@ -3,7 +3,7 @@ import 'package:konta_app/common/utils/failure.dart';
 import 'package:konta_app/feature/accounts/data/model/account.dart';
 
 abstract class AccountRepository {
-  Stream<Either<Failure, List<Account>>> watchAccounts();
+  Future<Either<Failure, List<Account>>> getAccounts();
 
   Future<Either<Failure, void>> createAccount({
     required String name,

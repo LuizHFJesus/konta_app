@@ -12,7 +12,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = getIt<AccountsController>();
+    final controller = Get.put(getIt<AccountsController>());
     final theme = Theme.of(context);
 
     return Obx(() {
@@ -46,7 +46,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                 style: theme.textTheme.headlineMedium,
               ),
               CustomElevatedButton(
-                onPressed: controller.listenToAccounts,
+                onPressed: controller.getAccounts,
                 text: 'Tentar novamente',
               ),
             ],

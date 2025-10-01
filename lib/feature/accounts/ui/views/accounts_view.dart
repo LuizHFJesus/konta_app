@@ -64,7 +64,7 @@ class AccountsView extends StatelessWidget {
               )
             : CustomElevatedButton(
                 text: 'Tentar novamente',
-                onPressed: controller.listenToAccounts,
+                onPressed: controller.getAccounts,
               ),
       ),
     );
@@ -73,8 +73,8 @@ class AccountsView extends StatelessWidget {
   Widget _buildLoadingState() {
     return const Center(
       child: SizedBox(
-        height: 96,
-        width: 96,
+        height: 50,
+        width: 50,
         child: CircularProgressIndicator(),
       ),
     );
