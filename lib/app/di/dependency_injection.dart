@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:konta_app/feature/accounts/data/repository/account_repository.dart';
 import 'package:konta_app/feature/accounts/data/repository/account_repository_mock.dart';
+import 'package:konta_app/feature/accounts/ui/controllers/account_form_controller.dart';
 import 'package:konta_app/feature/accounts/ui/controllers/accounts_controller.dart';
 import 'package:konta_app/feature/auth/data/repository/auth_repository.dart';
 import 'package:konta_app/feature/auth/data/repository/auth_repository_mock.dart';
@@ -16,4 +17,5 @@ Future<void> injectDependencies() async {
   // Controllers
   getIt.registerLazySingleton<AuthController>(AuthController.new);
   getIt.registerLazySingleton<AccountsController>(AccountsController.new);
+  getIt.registerFactory<AccountFormController>(AccountFormController.new);
 }

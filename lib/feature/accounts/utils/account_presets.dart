@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AccountPresets {
-  static const List<Color> predifinedColors = [
+  static const List<Color> predefinedColors = [
     Color(0xFFF1DD1E),
     Color(0xFFF5B426),
     Color(0xFFF2832A),
@@ -16,7 +16,7 @@ class AccountPresets {
     Color(0xFF95C940),
   ];
 
-  static const List<IconData> predifinedIcons = [
+  static const List<IconData> predefinedIcons = [
     Icons.receipt_long,
     Icons.wallet,
     Icons.savings,
