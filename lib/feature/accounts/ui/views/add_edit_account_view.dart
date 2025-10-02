@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/common/utils/currency_input_formatter.dart';
+import 'package:konta_app/common/widgets/confirmation_dialog.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/common/widgets/picker_bottom_sheet.dart';
 import 'package:konta_app/common/widgets/picker_field.dart';
@@ -53,7 +54,22 @@ class _AddEditAccountViewState extends State<AddEditAccountView> {
             if (isEditing)
               IconButton(
                 icon: const Icon(Icons.delete_outline),
-                onPressed: () => controller.deleteAccount(context),
+                onPressed: () async {
+                  final shouldDelete = await showDialog<bool>(
+                    context: context,
+                    builder: (BuildContext dialogContext) {
+                      return const ConfirmationDialog(
+                        title: 'Excluir conta',
+                        content:
+                            '''Tem certeza que deseja excluir esta conta?\nTodas as transações associadas a ela também serão removidas.''',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Excluir',
+                      );
+                    },
+                  );
+
+                  if (shouldDelete!) await controller.deleteAccount(context);
+                },
               ),
           ],
         ),
@@ -126,7 +142,7 @@ class _AddEditAccountViewState extends State<AddEditAccountView> {
                   ),
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    CurrencyInputFormatter()
+                    CurrencyInputFormatter(),
                   ],
                   validator: controller.validateBalace,
                   readOnly: isEditing,
