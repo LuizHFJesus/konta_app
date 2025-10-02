@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/navigation/app_routes.dart';
+import 'package:konta_app/feature/accounts/data/model/account.dart';
 import 'package:konta_app/feature/accounts/ui/views/accounts_view.dart';
+import 'package:konta_app/feature/accounts/ui/views/add_edit_account_view.dart';
 import 'package:konta_app/feature/auth/view/auth_view.dart';
 import 'package:konta_app/feature/home/ui/base_screen.dart';
 
@@ -73,6 +75,21 @@ class AppRouter {
           name: AppRoutes.accounts,
           path: AppRoutes.accounts,
           builder: (context, state) => const AccountsView(),
+          routes: [
+            GoRoute(
+              name: AppRoutes.accountsCreate,
+              path: 'create',
+              builder: (context, state) => const AddEditAccountView(),
+            ),
+            GoRoute(
+              name: AppRoutes.accountsEdit,
+              path: 'edit/:id',
+              builder: (context, state) {
+                final account = state.extra as Account?;
+                return AddEditAccountView(accountToEdit: account);
+              },
+            ),
+          ],
         ),
       ],
     );

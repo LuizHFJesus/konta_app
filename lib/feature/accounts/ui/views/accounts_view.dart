@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
+import 'package:konta_app/app/navigation/app_routes.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/feature/accounts/ui/controllers/accounts_controller.dart';
 import 'package:konta_app/feature/accounts/ui/widgets/account_tile.dart';
@@ -45,8 +46,11 @@ class AccountsView extends StatelessWidget {
               name: account.name,
               balance: account.balance,
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                // context.push('/accounts/edit');
+              onTap: () async {
+                await context.push(
+                  AppRoutes.accountsEdit.replaceFirst(':id', account.id),
+                  extra: account,
+                );
               },
             );
           },
@@ -58,8 +62,8 @@ class AccountsView extends StatelessWidget {
         child: controller.errorMessage == ''
             ? CustomElevatedButton(
                 text: 'Criar nova conta',
-                onPressed: () {
-                  // context.push('/accounts/create');
+                onPressed: () async {
+                  await context.push(AppRoutes.accountsCreate);
                 },
               )
             : CustomElevatedButton(
