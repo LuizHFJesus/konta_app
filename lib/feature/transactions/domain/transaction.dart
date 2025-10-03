@@ -19,6 +19,26 @@ class Transaction {
     this.description,
   });
 
+  Transaction copyWith({
+    String? id,
+    TransactionType? type,
+    double? amount,
+    String? accountId,
+    String? categoryId,
+    DateTime? date,
+    String? description,
+  }) {
+    return Transaction(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      amount: amount ?? this.amount,
+      accountId: accountId ?? this.accountId,
+      categoryId: categoryId ?? this.categoryId,
+      date: date ?? this.date,
+      description: description ?? this.description,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
