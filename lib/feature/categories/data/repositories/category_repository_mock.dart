@@ -2,7 +2,7 @@ import 'package:dart_either/dart_either.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:konta_app/common/utils/failure.dart';
-import 'package:konta_app/feature/categories/domain/data/repositories/category_repository.dart';
+import 'package:konta_app/feature/categories/data/repositories/category_repository.dart';
 import 'package:konta_app/feature/categories/domain/models/category.dart';
 import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
