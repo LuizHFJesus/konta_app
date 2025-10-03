@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:dart_either/dart_either.dart';
 import 'package:konta_app/common/utils/failure.dart';
 import 'package:konta_app/feature/transactions/data/transactions_repository.dart';
-import 'package:konta_app/feature/transactions/domain/transaction.dart';
+import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
 class TransactionsRepositoryMock implements TransactionsRepository {
   final List<Transaction> _transactions = [];
@@ -24,14 +24,14 @@ class TransactionsRepositoryMock implements TransactionsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> createTransaction(
-    TransactionType type,
-    double amount,
-    DateTime date,
-    String categoryId,
-    String accountId,
+  Future<Either<Failure, void>> createTransaction({
+    required TransactionType type,
+    required double amount,
+    required DateTime date,
+    required String categoryId,
+    required String accountId,
     String? description,
-  ) async {
+  }) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
 
@@ -70,7 +70,7 @@ class TransactionsRepositoryMock implements TransactionsRepository {
         return Left(Failure('Transação não encontrada para atualizar (mock).'));
       }
     } catch (e) {
-      return Left(Failure('Erro ao atualizar conta (mock).'));
+      return Left(Failure('Erro ao atualizar trasação (mock).'));
     }
   }
 
@@ -89,11 +89,11 @@ class TransactionsRepositoryMock implements TransactionsRepository {
         return Left(Failure('Transação não encontrada para deletar (mock).'));
       }
     } catch (e) {
-      return Left(Failure('Erro ao deletar conta (mock).'));
+      return Left(Failure('Erro ao deletar transação (mock).'));
     }
   }
 
-  void dispose() {
-    _streamController.close();
+  Future<void> dispose() async {
+    await _streamController.close();
   }
 }

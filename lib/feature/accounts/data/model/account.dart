@@ -15,6 +15,22 @@ class Account {
     required this.colorValue,
   });
 
+  Account copyWith({
+    String? id,
+    String? name,
+    double? balance,
+    int? iconCodePoint,
+    int? colorValue,
+  }) {
+    return Account(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      balance: balance ?? this.balance,
+      iconCodePoint: iconCodePoint ?? this.iconCodePoint,
+      colorValue: colorValue ?? this.colorValue,
+    );
+  }
+
   Color get color => Color(colorValue);
 
   IconData get icon => IconData(iconCodePoint, fontFamily: 'MaterialIcons');

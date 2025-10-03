@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/common/utils/failure.dart';
 import 'package:konta_app/feature/transactions/data/transactions_repository.dart';
-import 'package:konta_app/feature/transactions/domain/transaction.dart';
+import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
 class TransactionsController extends GetxController {
   final TransactionsRepository _transactionRepository =

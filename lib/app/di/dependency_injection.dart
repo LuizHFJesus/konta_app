@@ -8,6 +8,9 @@ import 'package:konta_app/feature/auth/data/repository/auth_repository_mock.dart
 import 'package:konta_app/feature/auth/view/auth_controller.dart';
 import 'package:konta_app/feature/transactions/data/transactions_repository.dart';
 import 'package:konta_app/feature/transactions/data/transactions_repository_mock.dart';
+import 'package:konta_app/feature/transactions/domain/usecases/create_transaction_usecase.dart';
+import 'package:konta_app/feature/transactions/domain/usecases/delete_transaction_usecase.dart';
+import 'package:konta_app/feature/transactions/domain/usecases/update_transaction_usecase.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -17,6 +20,26 @@ Future<void> injectDependencies() async {
   getIt.registerLazySingleton<AccountRepository>(AccountRepositoryMock.new);
   getIt.registerLazySingleton<TransactionsRepository>(
     TransactionsRepositoryMock.new,
+  );
+
+  // UseCases
+  getIt.registerFactory<CreateTransactionUsecase>(
+    () => CreateTransactionUsecase(
+      transactionRepository: getIt(),
+      accountRepository: getIt(),
+    ),
+  );
+  getIt.registerFactory<UpdateTransactionUsecase>(
+        () => UpdateTransactionUsecase(
+      transactionRepository: getIt(),
+      accountRepository: getIt(),
+    ),
+  );
+  getIt.registerFactory<DeleteTransactionUsecase>(
+        () => DeleteTransactionUsecase(
+      transactionRepository: getIt(),
+      accountRepository: getIt(),
+    ),
   );
 
   // Controllers
