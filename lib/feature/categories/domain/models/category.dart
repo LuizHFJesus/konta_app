@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
-class TransactionCategory {
+class Category {
   final String id;
   final TransactionType type;
   final String name;
   final int iconCodePoint;
   final int colorValue;
 
-  TransactionCategory({
+  Category({
     required this.id,
     required this.type,
     required this.name,
@@ -30,8 +30,8 @@ class TransactionCategory {
     };
   }
 
-  factory TransactionCategory.fromJson(Map<String, dynamic> map) {
-    return TransactionCategory(
+  factory Category.fromJson(Map<String, dynamic> map) {
+    return Category(
       id: map['id'] as String,
       type: map['type'] as TransactionType,
       name: map['name'] as String,
