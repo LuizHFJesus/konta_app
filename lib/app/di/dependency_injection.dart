@@ -14,6 +14,8 @@ import 'package:konta_app/feature/transactions/data/transactions_repository_mock
 import 'package:konta_app/feature/transactions/domain/usecases/create_transaction_usecase.dart';
 import 'package:konta_app/feature/transactions/domain/usecases/delete_transaction_usecase.dart';
 import 'package:konta_app/feature/transactions/domain/usecases/update_transaction_usecase.dart';
+import 'package:konta_app/feature/transactions/ui/controllers/transactions_controller.dart';
+import 'package:konta_app/feature/transactions/ui/controllers/transactions_form_controller.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -26,7 +28,6 @@ Future<void> injectDependencies() async {
   );
   getIt.registerLazySingleton<CategoryRepository>(CategoryRepositoryMock.new);
 
-
   // UseCases
   getIt.registerFactory<CreateTransactionUsecase>(
     () => CreateTransactionUsecase(
@@ -35,13 +36,13 @@ Future<void> injectDependencies() async {
     ),
   );
   getIt.registerFactory<UpdateTransactionUsecase>(
-        () => UpdateTransactionUsecase(
+    () => UpdateTransactionUsecase(
       transactionRepository: getIt(),
       accountRepository: getIt(),
     ),
   );
   getIt.registerFactory<DeleteTransactionUsecase>(
-        () => DeleteTransactionUsecase(
+    () => DeleteTransactionUsecase(
       transactionRepository: getIt(),
       accountRepository: getIt(),
     ),
@@ -51,5 +52,9 @@ Future<void> injectDependencies() async {
   getIt.registerLazySingleton<AuthController>(AuthController.new);
   getIt.registerLazySingleton<AccountsController>(AccountsController.new);
   getIt.registerFactory<AccountFormController>(AccountFormController.new);
+  getIt.registerFactory<TransactionsController>(TransactionsController.new);
+  getIt.registerFactory<TransactionFormController>(
+    TransactionFormController.new,
+  );
   getIt.registerLazySingleton<CategoriesController>(CategoriesController.new);
 }
