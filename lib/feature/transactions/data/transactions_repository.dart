@@ -1,8 +1,8 @@
 import 'package:dart_either/dart_either.dart';
 import 'package:konta_app/common/utils/failure.dart';
-import 'package:konta_app/feature/transaction/domain/transaction.dart';
+import 'package:konta_app/feature/transactions/domain/transaction.dart';
 
-abstract class TransactionRepository {
+abstract class TransactionsRepository {
   Stream<Either<Failure, List<Transaction>>> listenTransactions();
 
   Future<Either<Failure, void>> createTransaction(Transaction transaction);

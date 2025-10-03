@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konta_app/feature/transaction/domain/transaction.dart';
+import 'package:konta_app/feature/transactions/domain/transaction.dart';
 
 class TransactionCategory {
   final String id;

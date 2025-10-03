@@ -14,9 +14,9 @@ class Transaction {
     required this.type,
     required this.amount,
     required this.date,
-    this.description,
     required this.categoryId,
     required this.accountId,
+    this.description,
   });
 
   Map<String, dynamic> toJson() {
