@@ -1,35 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
-class Account {
+class Category {
   final String id;
+  final TransactionType type;
   final String name;
-  final double balance;
   final int iconCodePoint;
   final int colorValue;
 
-  Account({
+  Category({
     required this.id,
+    required this.type,
     required this.name,
-    required this.balance,
     required this.iconCodePoint,
     required this.colorValue,
   });
-
-  Account copyWith({
-    String? id,
-    String? name,
-    double? balance,
-    int? iconCodePoint,
-    int? colorValue,
-  }) {
-    return Account(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      balance: balance ?? this.balance,
-      iconCodePoint: iconCodePoint ?? this.iconCodePoint,
-      colorValue: colorValue ?? this.colorValue,
-    );
-  }
 
   Color get color => Color(colorValue);
 
@@ -38,18 +23,18 @@ class Account {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'type': type,
       'name': name,
-      'balance': balance,
       'iconCodePoint': iconCodePoint,
       'colorValue': colorValue,
     };
   }
 
-  factory Account.fromJson(Map<String, dynamic> map) {
-    return Account(
+  factory Category.fromJson(Map<String, dynamic> map) {
+    return Category(
       id: map['id'] as String,
+      type: map['type'] as TransactionType,
       name: map['name'] as String,
-      balance: map['balance'] as double,
       iconCodePoint: map['iconCodePoint'] as int,
       colorValue: map['colorValue'] as int,
     );
