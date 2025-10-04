@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/feature/categories/data/repositories/category_repository.dart';
 import 'package:konta_app/feature/categories/domain/models/category.dart';
+import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 
 class CategoriesController extends GetxController {
   final CategoryRepository _categoryRepository = getIt<CategoryRepository>();
@@ -25,6 +26,10 @@ class CategoriesController extends GetxController {
       ifRight: (categoryList) => _categories.value = categoryList,
     );
     _isLoading.value = false;
+  }
+
+  List<Category> getCategoriesByType(TransactionType type) {
+    return _categories.where((cat) => cat.type == type).toList();
   }
 
   Category getCategoryById(String categoryId) {

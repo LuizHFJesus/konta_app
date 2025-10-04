@@ -69,7 +69,7 @@ class _TransactionFormViewState extends State<TransactionFormView> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            isEditing ? 'Editar transação' : 'Adicionar nova transação',
+            isEditing ? 'Editar transação' : 'Criar nova transação',
           ),
           centerTitle: true,
           leading: IconButton(
@@ -215,7 +215,7 @@ class _TransactionFormViewState extends State<TransactionFormView> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
               child: CustomElevatedButton(
-                text: isEditing ? 'Salvar alterações' : 'Criar nova conta',
+                text: isEditing ? 'Salvar alterações' : 'Criar nova transação',
                 onPressed: () => controller.createOrUpdateTransaction(context),
                 isSubmitting: controller.isSubmitting,
               ),
@@ -251,7 +251,9 @@ class _TransactionFormViewState extends State<TransactionFormView> {
       isScrollControlled: true,
       builder: (context) => TileSelectorBottomSheet<Category>(
         title: 'Categorias',
-        items: categoriesController.categories,
+        items: categoriesController.getCategoriesByType(
+          controller.selectedType,
+        ),
         selectedItem: controller.selectedCategory,
         onItemSelected: (category) => context.pop(category),
         itemBuilder: (context, cat, isSelected) {
