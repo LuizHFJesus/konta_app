@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/app/navigation/app_routes.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
+import 'package:konta_app/common/widgets/custom_tile.dart';
 import 'package:konta_app/feature/accounts/ui/controllers/accounts_controller.dart';
-import 'package:konta_app/feature/accounts/ui/widgets/account_tile.dart';
 
 class AccountsView extends StatelessWidget {
   const AccountsView({super.key});
@@ -40,11 +40,11 @@ class AccountsView extends StatelessWidget {
           itemBuilder: (context, index) {
             final account = controller.accounts[index];
 
-            return AccountTile(
+            return CustomTile(
               icon: account.icon,
               color: account.color,
-              name: account.name,
-              balance: account.balance,
+              title: account.name,
+              subTitle: 'Saldo: R\$ ${account.balance.toStringAsFixed(2)}',
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () async {
                 await context.push(

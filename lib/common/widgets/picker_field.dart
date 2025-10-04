@@ -7,12 +7,14 @@ class PickerField extends StatelessWidget {
     required this.valueWidget,
     this.onTap,
     this.validator,
+    this.icon = Icons.keyboard_arrow_down,
   });
 
   final String labelText;
   final Widget valueWidget;
   final VoidCallback? onTap;
   final FormFieldValidator<String>? validator;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class PickerField extends StatelessWidget {
                   children: [
                     valueWidget,
                     Icon(
-                      Icons.keyboard_arrow_down,
+                      icon,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ],

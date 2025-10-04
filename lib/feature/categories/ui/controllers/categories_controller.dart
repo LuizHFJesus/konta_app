@@ -26,4 +26,8 @@ class CategoriesController extends GetxController {
     );
     _isLoading.value = false;
   }
+
+  Category getCategoryById(String categoryId) {
+    return _categories.firstWhere((cat) => cat.id == categoryId);
+  }
 }

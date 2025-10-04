@@ -52,7 +52,9 @@ Future<void> injectDependencies() async {
   getIt.registerLazySingleton<AuthController>(AuthController.new);
   getIt.registerLazySingleton<AccountsController>(AccountsController.new);
   getIt.registerFactory<AccountFormController>(AccountFormController.new);
-  getIt.registerFactory<TransactionsController>(TransactionsController.new);
+  getIt.registerLazySingleton<TransactionsController>(
+    TransactionsController.new,
+  );
   getIt.registerFactory<TransactionFormController>(
     TransactionFormController.new,
   );

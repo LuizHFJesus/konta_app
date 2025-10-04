@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konta_app/feature/accounts/ui/widgets/account_tile.dart';
+import 'package:konta_app/common/widgets/custom_tile.dart';
 
 class AccountSelectorTile extends StatelessWidget {
   const AccountSelectorTile({
@@ -23,11 +23,11 @@ class AccountSelectorTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return AccountTile(
+    return CustomTile(
       icon: icon,
       color: color,
-      name: name,
-      balance: balance,
+      title: name,
+      subTitle: 'Saldo: R\$ ${balance.toStringAsFixed(2)}',
       trailing: isSelected
           ? Icon(
               Icons.check_circle,

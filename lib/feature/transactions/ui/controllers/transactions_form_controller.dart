@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
 import 'package:konta_app/common/utils/currency_input_formatter.dart';
 import 'package:konta_app/common/utils/failure.dart';
+import 'package:konta_app/feature/accounts/data/model/account.dart';
+import 'package:konta_app/feature/categories/domain/models/category.dart';
 import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
 import 'package:konta_app/feature/transactions/domain/usecases/create_transaction_usecase.dart';
 import 'package:konta_app/feature/transactions/domain/usecases/delete_transaction_usecase.dart';
@@ -23,18 +25,48 @@ class TransactionFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final amountController = TextEditingController();
   final descriptionController = TextEditingController();
-  final Rx<TransactionType> selectedType = TransactionType.expense.obs;
-  final Rx<String?> selectedAccountId = null.obs;
-  final Rx<String?> selectedCategoryId = null.obs;
-  final Rx<DateTime?> selectedDate = Rx(null);
+
+  final Rx<TransactionType> _selectedType = TransactionType.expense.obs;
+  final Rx<Account?> _selectedAccount = Rx(null);
+  final Rx<Category?> _selectedCategory = Rx(null);
+  final Rx<DateTime?> _selectedDate = Rx(null);
 
   final RxBool _isSubmitting = false.obs;
   final RxString _errorMessage = ''.obs;
   Transaction? _editingTransaction;
 
+  TransactionType get selectedType => _selectedType.value;
+
+  Account? get selectedAccount => _selectedAccount.value;
+
+  Category? get selectedCategory => _selectedCategory.value;
+
+  DateTime? get selectedDate => _selectedDate.value;
+
   bool get isSubmitting => _isSubmitting.value;
 
   String get errorMessage => _errorMessage.value;
+
+  void setTransactionType(TransactionType newType) {
+    if (newType == _selectedType.value) return;
+    _selectedCategory.value = null;
+    _selectedType.value = newType;
+  }
+
+  void setAccount(Account newAccount) {
+    if (newAccount == _selectedAccount.value) return;
+    _selectedAccount.value = newAccount;
+  }
+
+  void setDate(DateTime newDate) {
+    if (newDate == _selectedDate.value) return;
+    _selectedDate.value = newDate;
+  }
+
+  void setCategory(Category newCategory) {
+    if (newCategory == _selectedCategory.value) return;
+    _selectedCategory.value = newCategory;
+  }
 
   String? validateAmount(String? value) {
     if (value == null || value.isEmpty) return 'validation_empty_field'.tr;
@@ -42,29 +74,27 @@ class TransactionFormController extends GetxController {
   }
 
   String? validateAccount() {
-    if (selectedAccountId.value == null) return 'validation_empty_field'.tr;
+    if (_selectedAccount.value == null) return 'validation_empty_field'.tr;
     return null;
   }
 
   String? validateCategory() {
-    if (selectedCategoryId.value == null) return 'validation_empty_field'.tr;
+    if (_selectedCategory.value == null) return 'validation_empty_field'.tr;
     return null;
   }
 
   String? validateDate() {
-    if (selectedDate.value == null) return 'validation_empty_field'.tr;
+    if (_selectedDate.value == null) return 'validation_empty_field'.tr;
     return null;
   }
 
   void initEditing(Transaction transaction) {
     _editingTransaction = transaction;
 
-    selectedType.value = transaction.type;
+    _selectedType.value = transaction.type;
     amountController.text = CurrencyInputFormatter.format(transaction.amount);
-    selectedDate.value = transaction.date;
+    _selectedDate.value = transaction.date;
     descriptionController.text = transaction.description ?? '';
-    selectedAccountId.value = transaction.accountId;
-    selectedCategoryId.value = transaction.categoryId;
   }
 
   Future<void> createOrUpdateTransaction(BuildContext context) async {
@@ -77,11 +107,11 @@ class TransactionFormController extends GetxController {
 
     if (_editingTransaction != null) {
       final updatedTransaction = _editingTransaction!.copyWith(
-        type: selectedType.value,
+        type: _selectedType.value,
         amount: double.tryParse(amountController.text) ?? 0.0,
-        date: selectedDate.value,
-        accountId: selectedAccountId.value,
-        categoryId: selectedCategoryId.value,
+        date: _selectedDate.value,
+        accountId: _selectedAccount.value!.id,
+        categoryId: _selectedCategory.value!.id,
         description: descriptionController.text,
       );
       response = await _updateTransactionUsecase.call(
@@ -90,11 +120,11 @@ class TransactionFormController extends GetxController {
       );
     } else {
       response = await _createTransactionUsecase.call(
-        type: selectedType.value,
+        type: _selectedType.value,
         amount: double.tryParse(amountController.text) ?? 0.0,
-        date: selectedDate.value!,
-        accountId: selectedAccountId.value!,
-        categoryId: selectedCategoryId.value!,
+        date: _selectedDate.value!,
+        accountId: _selectedAccount.value!.id,
+        categoryId: _selectedCategory.value!.id,
         description: descriptionController.text,
       );
     }
@@ -128,18 +158,20 @@ class TransactionFormController extends GetxController {
   void _clearFields() {
     amountController.clear();
     descriptionController.clear();
-    selectedType.value = TransactionType.expense;
-    selectedAccountId.value = null;
-    selectedCategoryId.value = null;
-    selectedDate.value = null;
+    _selectedType.value = TransactionType.expense;
+    _selectedAccount.value = null;
+    _selectedCategory.value = null;
+    _selectedDate.value = null;
 
     _errorMessage.value = '';
     _editingTransaction = null;
   }
 
-  void dispose() {
+  @override
+  void onClose() {
     _clearFields();
     amountController.dispose();
     descriptionController.dispose();
+    super.onClose();
   }
 }

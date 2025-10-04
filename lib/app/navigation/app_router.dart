@@ -6,6 +6,8 @@ import 'package:konta_app/feature/accounts/ui/views/accounts_view.dart';
 import 'package:konta_app/feature/accounts/ui/views/add_edit_account_view.dart';
 import 'package:konta_app/feature/auth/view/auth_view.dart';
 import 'package:konta_app/feature/home/ui/base_screen.dart';
+import 'package:konta_app/feature/transactions/domain/models/transaction.dart';
+import 'package:konta_app/feature/transactions/ui/views/transaction_form_view.dart';
 
 class AppRouter {
   late final GoRouter router;
@@ -87,6 +89,28 @@ class AppRouter {
               builder: (context, state) {
                 final account = state.extra as Account?;
                 return AddEditAccountView(accountToEdit: account);
+              },
+            ),
+          ],
+        ),
+
+        GoRoute(
+          name: AppRoutes.transactions,
+          path: AppRoutes.transactions,
+          builder: (context, state) =>
+              const Center(child: Text('transactions')),
+          routes: [
+            GoRoute(
+              name: AppRoutes.transactionsCreate,
+              path: 'create',
+              builder: (context, state) => const TransactionFormView(),
+            ),
+            GoRoute(
+              name: AppRoutes.transactionsUpdate,
+              path: 'update/:id',
+              builder: (context, state) {
+                final transaction = state.extra as Transaction?;
+                return TransactionFormView(transactionToEdit: transaction);
               },
             ),
           ],

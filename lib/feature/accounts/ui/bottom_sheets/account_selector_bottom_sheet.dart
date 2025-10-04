@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konta_app/app/di/dependency_injection.dart';
+import 'package:konta_app/app/navigation/app_routes.dart';
 import 'package:konta_app/common/widgets/custom_elevated_button.dart';
 import 'package:konta_app/common/widgets/custom_text_button.dart';
 import 'package:konta_app/feature/accounts/ui/controllers/accounts_controller.dart';
 import 'package:konta_app/feature/accounts/ui/widgets/account_selector_tile.dart';
 
 class AccountSelectorBottomSheet extends StatelessWidget {
-  const AccountSelectorBottomSheet({super.key});
+  final String? selectedAccountId;
+
+  const AccountSelectorBottomSheet({
+    this.selectedAccountId,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +72,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                 Text('Contas', style: theme.textTheme.titleMedium),
                 IconButton(
                   icon: const Icon(Icons.edit_outlined),
-                  onPressed: () => context.push('/accounts'),
+                  onPressed: () => context.push(AppRoutes.accounts),
                 ),
               ],
             ),
@@ -75,15 +81,16 @@ class AccountSelectorBottomSheet extends StatelessWidget {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               children: [
-                AccountSelectorTile(
-                  icon: Icons.wallet,
-                  color: const Color(0xFF434654),
-                  name: 'Todas as contas',
-                  balance: controller.totalBalance,
-                  onTap: () => controller.selectAccount(null),
-                  isSelected: controller.selectedAccount == null,
-                ),
-                const SizedBox(height: 8),
+                if (selectedAccountId == null)
+                  AccountSelectorTile(
+                    icon: Icons.wallet,
+                    color: const Color(0xFF434654),
+                    name: 'Todas as contas',
+                    balance: controller.totalBalance,
+                    onTap: () => controller.selectAccount(null),
+                    isSelected: controller.selectedAccount == null,
+                  ),
+                if (selectedAccountId == null) const SizedBox(height: 8),
 
                 ...controller.accounts.map((acc) {
                   return Padding(
@@ -93,8 +100,12 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                       color: acc.color,
                       name: acc.name,
                       balance: acc.balance,
-                      onTap: () => controller.selectAccount(acc),
-                      isSelected: controller.selectedAccount?.id == acc.id,
+                      onTap: () => selectedAccountId == null
+                          ? controller.selectAccount(acc)
+                          : context.pop(acc),
+                      isSelected: selectedAccountId == null
+                          ? controller.selectedAccount?.id == acc.id
+                          : selectedAccountId == acc.id,
                     ),
                   );
                 }),
@@ -106,7 +117,7 @@ class AccountSelectorBottomSheet extends StatelessWidget {
                 color: theme.colorScheme.primary,
               ),
               text: 'Adicionar nova conta',
-              onPressed: () => context.push('/accounts'),
+              onPressed: () => context.push(AppRoutes.accounts),
             ),
           ],
         ),

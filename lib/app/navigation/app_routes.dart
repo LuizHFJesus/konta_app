@@ -5,6 +5,9 @@ class AppRoutes {
   static const String reminder = '/reminder';
   static const String profile = '/profile';
   static const String accounts = '/accounts';
-  static const String accountsCreate = '/accounts/create';
-  static const String accountsEdit = '/accounts/edit/:id';
+  static const String accountsCreate = '$accounts/create';
+  static const String accountsEdit = '$accounts/edit/:id';
+  static const String transactions = '/transactions';
+  static const String transactionsCreate = '$transactions/create';
+  static const String transactionsUpdate = '$transactions/update/:id';
 }

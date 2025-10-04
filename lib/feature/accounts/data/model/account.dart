@@ -54,4 +54,10 @@ class Account {
       colorValue: map['colorValue'] as int,
     );
   }
+
+  @override
+  String toString() {
+    return 'Account(id: $id, name: $name, balance: $balance, '
+        'iconCodePoint: $iconCodePoint, colorValue: $colorValue)';
+  }
 }
